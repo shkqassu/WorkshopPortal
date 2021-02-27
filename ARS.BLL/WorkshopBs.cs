@@ -10,7 +10,7 @@ namespace ARS.BLL
 {
     public class WorkshopBs : ServiceBase
     {
-        public bool InsertWorkshop(WorkShop Wp /*List<int> Ls*/)
+        public bool InsertWorkshop(WorkShop Wp)
         {
             //Workshopdate should be greater than current date
             if (Wp.WorkShopDate > DateTime.Now)

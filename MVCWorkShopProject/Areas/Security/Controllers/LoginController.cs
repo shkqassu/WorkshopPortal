@@ -27,6 +27,7 @@ namespace MVCWorkShopProject.Areas.Security.Controllers
                 if (Membership.ValidateUser(U.UserName_Email, U.Password))
                 {
                     FormsAuthentication.SetAuthCookie(U.UserName_Email, false);
+                    Session["FirstName"] = U.FirstName;
                     return RedirectToAction("Index", "Home", new { area = "Common" });
                 }
                 else

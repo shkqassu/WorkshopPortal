@@ -14,6 +14,7 @@ namespace ARS.BLL
         {
             MD.CreateMaterial(M);
         }
+
         public List<WorkShopMaterial> GetMaterials()
         {
             return MD.GetMaterials(); ;

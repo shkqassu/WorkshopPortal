@@ -25,6 +25,7 @@ namespace ARS.DAL
             con.Close();
             return true;
         }
+
         public List<WorkShopMaterial> GetMaterials()
         {
             try

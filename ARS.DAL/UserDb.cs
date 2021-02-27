@@ -32,6 +32,7 @@ namespace ARS.DAL
                 Ud.UserId = int.Parse(dr["UserId"].ToString());
                 Ud.UserName_Email = dr["UserName_Email"].ToString();
                 Ud.FirstName = dr["FirstName"].ToString();
+                Ud.LastName = dr["LastName"].ToString();
                 Ud.UserGender = dr["UserGender"].ToString();
                 Ud.Mobile = dr["Mobile"].ToString();
                 Ud.SkillsSet = dr["SkillsSet"].ToString();
@@ -45,7 +46,6 @@ namespace ARS.DAL
             return Ls;
 
         }
-
 
         public bool CreateUserRequest(UserDetails U, int WorkShopId)
         {

@@ -288,7 +288,7 @@ namespace ARS.DAL
             }
         }
 
-        public UserDetails GetStudentById(string UserName)
+        public UserDetails GetUserById(string UserName)
         {
             UserDetails U = null;
 

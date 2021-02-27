@@ -11,7 +11,8 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
     [Authorize(Roles = "1")]
     public class TrainerController : Controller
     {
-        // GET: Admin/Trainer
+        private string UserName = System.Web.HttpContext.Current.User.Identity.Name;
+        
         public ActionResult Index()
         {
             UserBs Ub = new UserBs();
@@ -48,31 +49,33 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-        #region NotWorkingMethod
+        
         [HttpGet]
-        public ActionResult Edit(int WorkShopId)
+        public ActionResult Edit()
         {
-            UserBs Wb = new UserBs();
-            //var WpListById = Wb.GetStudentById(WorkShopId);
-            return View();
+            UserBs Ub = new UserBs();
+            var StudList = Ub.GetUserById(UserName);
+            return View(StudList);
         }
 
         [HttpPost]
-        public ActionResult Edit(WorkShop Ws)
+        public ActionResult Edit(UserDetails U)
         {
             try
             {
-                // ModelState.Remove("UserEmail");
                 if (ModelState.IsValid)
                 {
-                    WorkshopBs Wb = new WorkshopBs();
-                    var user = Wb.GetWorkshopById(Ws.WorkShopId);
-                    user.WorkShopTitle = Ws.WorkShopTitle;
-                    user.WorkShopDate = Ws.WorkShopDate;
-                    user.WorkShopTopics = Ws.WorkShopTopics;
-                    user.WorkShopDuration = Ws.WorkShopDuration;
-                    Wb.UpdateWorkshopById(user, Ws.WorkShopId);
+                    UserBs Ub = new UserBs();
+                    var user = Ub.GetUserById(U.UserName_Email);
+                    user.UserId = U.UserId;
+                    user.UserName_Email = U.UserName_Email;
+                    user.UserGender = U.UserGender;
+                    user.FirstName = U.FirstName;
+                    user.LastName = U.LastName;
+                    user.Mobile = U.Mobile;
+                    user.SkillsSet = U.SkillsSet;
+                    user.Experience = U.Experience;
+                    Ub.UpdateStudent(user);
                     TempData["Msg"] = "Updated Successfully";
                     return RedirectToAction("Index");
                 }
@@ -87,23 +90,5 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
                 return RedirectToAction("Edit");
             }
         }
-
-        public ActionResult Delete(int WorkShopId)
-        {
-
-            try
-            {
-                UserBs Ub = new UserBs();
-                //Ub.GetStudentById(WorkShopId);
-                TempData["Msg"] = "Deleted Successfully";
-                return RedirectToAction("Index");
-            }
-            catch (Exception e1)
-            {
-                TempData["Msg"] = "Delete Failed : " + e1.Message;
-                return RedirectToAction("Index");
-            }
-        }
-        #endregion
     }
 }

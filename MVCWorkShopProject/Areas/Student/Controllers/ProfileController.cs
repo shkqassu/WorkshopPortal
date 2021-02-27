@@ -16,7 +16,7 @@ namespace MVCWorkShopProject.Areas.Student.Controllers
         {
             UserBs Ub = new UserBs();
             string UserName = System.Web.HttpContext.Current.User.Identity.Name;
-            var StudList = Ub.GetStudentById(UserName);
+            var StudList = Ub.GetUserById(UserName);
             return View(StudList);
         }
 
@@ -25,7 +25,7 @@ namespace MVCWorkShopProject.Areas.Student.Controllers
         {
             string UserName = System.Web.HttpContext.Current.User.Identity.Name;
             UserBs Ub = new UserBs();
-            var StudList = Ub.GetStudentById(UserName);
+            var StudList = Ub.GetUserById(UserName);
             return View(StudList);
         }
 
@@ -37,7 +37,7 @@ namespace MVCWorkShopProject.Areas.Student.Controllers
                 if (ModelState.IsValid)
                 {
                     UserBs Ub = new UserBs();
-                    var user = Ub.GetStudentById(U.UserName_Email);
+                    var user = Ub.GetUserById(U.UserName_Email);
                     user.UserId = U.UserId;
                     user.UserName_Email = U.UserName_Email;
                     user.UserGender = U.UserGender;

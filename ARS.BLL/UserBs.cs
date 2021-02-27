@@ -57,11 +57,11 @@ namespace ARS.BLL
         return UD.UpdateStudent(U);
     }
 
-        public UserDetails GetStudentById(string UserName)
+        public UserDetails GetUserById(string UserName)
     {
 
 
-            UserDetails U = UD.GetStudentById(UserName);
+            UserDetails U = UD.GetUserById(UserName);
         return U;
     }
 

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ARS.BOL.WorkShop>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Requested Workshop</h2>
+@if (TempData["Msg"] != null)
+{ <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @TempData["Msg"].ToString()
+    </div>}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTopics)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTopics)
+        </td>
+        <td>
+            @Html.ActionLink("Apply", "Apply", new { WorkShopId = item.WorkShopId })
+        </td>
+    </tr>
+}
+
+</table>

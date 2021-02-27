@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ARS.BOL.WorkShop>
+
+@{
+    ViewBag.Title = "Workshop List";
+}
+
+<h2>Workshop Lists</h2>
+@if (TempData["Msg"] != null)
+{ <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @TempData["Msg"].ToString()
+    </div>}
+
+<p>
+    @Html.ActionLink("Create New WorkShop", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTopics)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTopics)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { WorkShopId = item.WorkShopId }) |
+            @Html.ActionLink("Delete", "Delete", new { WorkShopId = item.WorkShopId })
+        </td>
+    </tr>
+}
+
+</table>

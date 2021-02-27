@@ -1,0 +1,87 @@
+﻿@model ARS.BOL.UserDetails
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Profile</h2>
+@if (TempData["Msg"] != null)
+{ <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @TempData["Msg"].ToString()
+    </div>}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.UserDob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDob)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkillsSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkillsSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit") |
+    @Html.ActionLink("Back to List", "Index")
+</p>

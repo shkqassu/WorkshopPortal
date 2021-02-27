@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ARS.BOL.WorkShopRequest>
+
+@{
+    ViewBag.Title = "Approval";
+}
+
+<h2>Approve/Reject Workshop Request</h2>
+<br />
+@if (TempData["Msg"] != null)
+{ <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @TempData["Msg"].ToString()
+    </div>}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SerialNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApproved)
+        </td>
+        <td>
+            @Html.ActionLink("Approve", "ApproveWsReq", new { SerialNo = item.SerialNo }) |
+            @Html.ActionLink("Reject", "RejectWsReq", new { SerialNo = item.SerialNo })
+        </td>
+    </tr>
+}
+
+</table>

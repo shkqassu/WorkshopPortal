@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ARS.BOL.WorkShopMaterial>
+
+@{
+    ViewBag.Title = "Material List";
+}
+
+<h2>Material Lists</h2>
+@if (TempData["Msg"] != null)
+{ <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        @TempData["Msg"].ToString()
+    </div>}
+
+<p>
+    @Html.ActionLink("Create New Material", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaterialId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaterialDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

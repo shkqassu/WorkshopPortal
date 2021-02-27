@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ARS.BOL.WorkShopByUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Workshop List</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkShopTopics)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkShopTopics)
+        </td>
+    </tr>
+}
+
+</table>

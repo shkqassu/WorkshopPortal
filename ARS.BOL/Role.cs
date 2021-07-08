@@ -12,14 +12,10 @@ namespace ARS.BOL
     using System;
     using System.Collections.Generic;
     
-    public partial class Student_WorkShop_Mapping
+    public partial class Role
     {
-        public int SerialNo { get; set; }
-        public Nullable<int> StudentId { get; set; }
-        public Nullable<int> WorkShopId { get; set; }
-        public Nullable<bool> ISApproved { get; set; }
-    
-        public virtual UserDetail UserDetail { get; set; }
-        public virtual WorkShop WorkShop { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public Nullable<bool> Status { get; set; }
     }
 }

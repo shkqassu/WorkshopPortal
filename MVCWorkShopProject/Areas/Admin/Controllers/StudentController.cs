@@ -9,12 +9,11 @@ using ARS.BLL;
 namespace MVCWorkShopProject.Areas.Admin.Controllers
 {
     [Authorize(Roles = "1")]
-    public class StudentController : Controller
+    public class StudentController : BaseAdminController
     {
         // GET: Admin/Student
         public ActionResult Index()
         {
-            UserBs Ub = new UserBs();
             var StdList = Ub.GetStudents();
             return View(StdList);
         }
@@ -24,7 +23,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
 
             try
             {
-                UserBs Ub = new UserBs();
                 U.IsActive = true;
                 Ub.ActiveDeactiveStudents(U);
                 TempData["Msg"] = "Activated Successfully";
@@ -42,7 +40,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
 
             try
             {
-                UserBs Ub = new UserBs();
                 U.IsActive = false;
                 Ub.ActiveDeactiveStudents(U);
                 TempData["Msg"] = "Deactivated Successfully";

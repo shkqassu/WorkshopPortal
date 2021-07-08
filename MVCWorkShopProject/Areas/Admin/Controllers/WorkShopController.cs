@@ -4,17 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ARS.BOL;
-using ARS.BLL;
 
 namespace MVCWorkShopProject.Areas.Admin.Controllers
 {
     [Authorize(Roles = "1")]
-    public class WorkShopController : Controller
+    public class WorkShopController : BaseAdminController
     {
         // GET: Admin/WorkShop
         public ActionResult Index()
         {
-            WorkshopBs Wb = new WorkshopBs();
             var WpList = Wb.GetWorkshops();
             return View(WpList);
         }
@@ -32,7 +30,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    WorkshopBs Wb = new WorkshopBs();
                     Wb.InsertWorkshop(Ws);
                     TempData["Msg"] = "Created Successfully";
                     return RedirectToAction("Index");
@@ -52,7 +49,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int WorkShopId)
         {
-            WorkshopBs Wb = new WorkshopBs();
             var WpListById = Wb.GetWorkshopById(WorkShopId);
             return View(WpListById);
         }
@@ -65,7 +61,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
                 // ModelState.Remove("UserEmail");
                 if (ModelState.IsValid)
                 {
-                    WorkshopBs Wb = new WorkshopBs();
                     var user = Wb.GetWorkshopById(Ws.WorkShopId);
                     user.WorkShopTitle = Ws.WorkShopTitle;
                     user.WorkShopDate = Ws.WorkShopDate;
@@ -92,7 +87,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
 
             try
             {
-                WorkshopBs Wb = new WorkshopBs();
                 Wb.DeleteWorkshopById(WorkShopId);
                 TempData["Msg"] = "Deleted Successfully";
                 return RedirectToAction("Index");

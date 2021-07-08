@@ -52,22 +52,97 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Material.cs" />
+    <Compile Include="ARSWorkshop.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ARSWorkshop.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ARSWorkshop.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ARSWorkshop.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ARSWorkshop.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Material.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student_WorkShop_Mapping.cs" />
-    <Compile Include="Trainer_WorkShop_Mapping.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAuthenticateUser_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetMaterials_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetStudents_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTrainers_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWorkshopById_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWorkShopByUser_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWorkshopRequest_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWorkshops_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ValidateUser_Result.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Student_WorkShop_Mapping.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trainer_WorkShop_Mapping.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserDetail.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserDetails.cs" />
-    <Compile Include="WorkShop.cs" />
+    <Compile Include="WorkShop.cs">
+      <DependentUpon>ARSWorkshop.tt</DependentUpon>
+    </Compile>
     <Compile Include="WorkShopByUser.cs" />
     <Compile Include="WorkShopMaterial.cs" />
     <Compile Include="WorkShopRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="ARSWorkshop.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ARSWorkshop.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ARSWorkshop.edmx.diagram">
+      <DependentUpon>ARSWorkshop.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ARSWorkshop.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ARSWorkshop.edmx</DependentUpon>
+      <LastGenOutput>ARSWorkshop.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ARSWorkshop.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ARSWorkshop.edmx</DependentUpon>
+      <LastGenOutput>ARSWorkshop.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

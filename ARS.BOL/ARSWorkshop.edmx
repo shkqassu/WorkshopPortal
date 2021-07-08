@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ARSWorkShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialPath" Type="nvarchar" MaxLength="200" />
+          <Property Name="WorkShopId" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Student_WorkShop_Mapping">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="WorkShopId" Type="int" />
+          <Property Name="ISApproved" Type="bit" />
+        </EntityType>
+        <EntityType Name="Trainer_WorkShop_Mapping">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrainerId" Type="int" />
+          <Property Name="WorkShopId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName_Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="UserGender" Type="varchar" MaxLength="100" />
+          <Property Name="Mobile" Type="varchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="UserDob" Type="datetime" />
+          <Property Name="SkillsSet" Type="varchar" MaxLength="500" />
+          <Property Name="Experience" Type="varchar" MaxLength="100" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="Updateddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WorkShop">
+          <Key>
+            <PropertyRef Name="WorkShopId" />
+          </Key>
+          <Property Name="WorkShopId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkShopTitle" Type="varchar" MaxLength="100" />
+          <Property Name="WorkShopDate" Type="datetime" />
+          <Property Name="WorkShopDuration" Type="varchar" MaxLength="100" />
+          <Property Name="WorkShopTopics" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Material_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_WorkShop_Mapping_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Student_WorkShop_Mapping" Type="Self.Student_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Student_WorkShop_Mapping">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_WorkShop_Mapping_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Student_WorkShop_Mapping" Type="Self.Student_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Student_WorkShop_Mapping">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_WorkShop_Mapping_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Trainer_WorkShop_Mapping" Type="Self.Trainer_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Trainer_WorkShop_Mapping">
+              <PropertyRef Name="TrainerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_WorkShop_Mapping_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Trainer_WorkShop_Mapping" Type="Self.Trainer_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Trainer_WorkShop_Mapping">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShop_UserDetail1">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="WorkShop">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AppOrRejectWorkshopRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsApproved" Type="bit" Mode="In" />
+          <Parameter Name="SerialNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CreateMaterial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaterialPath" Type="varchar" Mode="In" />
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CreateTrainer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName_Email" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_DeleteWorkshopById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetTrainers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetWorkshopById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetWorkShopByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetWorkshopRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetWorkshops" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_InsertIntoStudentWorkshopMapping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertIntoTrainerWorkshopMapping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrainerId" Type="int" Mode="In" />
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertIntoUserDetailsOfStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName_Email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertWorkshop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkShopTitle" Type="varchar" Mode="In" />
+          <Parameter Name="WorkShopDate" Type="datetime" Mode="In" />
+          <Parameter Name="WorkShopDuration" Type="varchar" Mode="In" />
+          <Parameter Name="WorkshopTopics" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_RegisterStud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName_Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserGender" Type="varchar" Mode="In" />
+          <Parameter Name="Mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserDob" Type="varchar" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_UpdateWorkshopById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkShopTitle" Type="varchar" Mode="In" />
+          <Parameter Name="WorkShopDate" Type="datetime" Mode="In" />
+          <Parameter Name="WorkShopDuration" Type="varchar" Mode="In" />
+          <Parameter Name="WorkshopTopics" Type="varchar" Mode="In" />
+          <Parameter Name="WorkShopId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ValidateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName_Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spAuthenticateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ARSWorkShopModelStoreContainer">
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="ARS" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="ARS" store:Type="Tables" />
+          <EntitySet Name="Student_WorkShop_Mapping" EntityType="Self.Student_WorkShop_Mapping" Schema="ARS" store:Type="Tables" />
+          <EntitySet Name="Trainer_WorkShop_Mapping" EntityType="Self.Trainer_WorkShop_Mapping" Schema="ARS" store:Type="Tables" />
+          <EntitySet Name="UserDetail" EntityType="Self.UserDetail" Schema="ARS" store:Type="Tables" />
+          <EntitySet Name="WorkShop" EntityType="Self.WorkShop" Schema="ARS" store:Type="Tables" />
+          <AssociationSet Name="FK_Material_UserDetail" Association="Self.FK_Material_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetail" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_WorkShop" Association="Self.FK_Material_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShop" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_WorkShop_Mapping_UserDetail" Association="Self.FK_Student_WorkShop_Mapping_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetail" />
+            <End Role="Student_WorkShop_Mapping" EntitySet="Student_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_WorkShop_Mapping_WorkShop" Association="Self.FK_Student_WorkShop_Mapping_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShop" />
+            <End Role="Student_WorkShop_Mapping" EntitySet="Student_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_WorkShop_Mapping_UserDetail" Association="Self.FK_Trainer_WorkShop_Mapping_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetail" />
+            <End Role="Trainer_WorkShop_Mapping" EntitySet="Trainer_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_WorkShop_Mapping_WorkShop" Association="Self.FK_Trainer_WorkShop_Mapping_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShop" />
+            <End Role="Trainer_WorkShop_Mapping" EntitySet="Trainer_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShop_UserDetail1" Association="Self.FK_WorkShop_UserDetail1">
+            <End Role="UserDetail" EntitySet="UserDetail" />
+            <End Role="WorkShop" EntitySet="WorkShop" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ARSWorkShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkShopId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_Material_UserDetail" FromRole="Material" ToRole="UserDetail" />
+          <NavigationProperty Name="WorkShop" Relationship="Self.FK_Material_WorkShop" FromRole="Material" ToRole="WorkShop" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Student_WorkShop_Mapping">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="WorkShopId" Type="Int32" />
+          <Property Name="ISApproved" Type="Boolean" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_Student_WorkShop_Mapping_UserDetail" FromRole="Student_WorkShop_Mapping" ToRole="UserDetail" />
+          <NavigationProperty Name="WorkShop" Relationship="Self.FK_Student_WorkShop_Mapping_WorkShop" FromRole="Student_WorkShop_Mapping" ToRole="WorkShop" />
+        </EntityType>
+        <EntityType Name="Trainer_WorkShop_Mapping">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrainerId" Type="Int32" />
+          <Property Name="WorkShopId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_Trainer_WorkShop_Mapping_UserDetail" FromRole="Trainer_WorkShop_Mapping" ToRole="UserDetail" />
+          <NavigationProperty Name="WorkShop" Relationship="Self.FK_Trainer_WorkShop_Mapping_WorkShop" FromRole="Trainer_WorkShop_Mapping" ToRole="WorkShop" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="UserDob" Type="DateTime" Precision="3" />
+          <Property Name="SkillsSet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Experience" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Updateddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Material_UserDetail" FromRole="UserDetail" ToRole="Material" />
+          <NavigationProperty Name="Student_WorkShop_Mapping" Relationship="Self.FK_Student_WorkShop_Mapping_UserDetail" FromRole="UserDetail" ToRole="Student_WorkShop_Mapping" />
+          <NavigationProperty Name="Trainer_WorkShop_Mapping" Relationship="Self.FK_Trainer_WorkShop_Mapping_UserDetail" FromRole="UserDetail" ToRole="Trainer_WorkShop_Mapping" />
+          <NavigationProperty Name="WorkShops" Relationship="Self.FK_WorkShop_UserDetail1" FromRole="UserDetail" ToRole="WorkShop" />
+        </EntityType>
+        <EntityType Name="WorkShop">
+          <Key>
+            <PropertyRef Name="WorkShopId" />
+          </Key>
+          <Property Name="WorkShopId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkShopTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WorkShopDate" Type="DateTime" Precision="3" />
+          <Property Name="WorkShopDuration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WorkShopTopics" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Material_WorkShop" FromRole="WorkShop" ToRole="Material" />
+          <NavigationProperty Name="Student_WorkShop_Mapping" Relationship="Self.FK_Student_WorkShop_Mapping_WorkShop" FromRole="WorkShop" ToRole="Student_WorkShop_Mapping" />
+          <NavigationProperty Name="Trainer_WorkShop_Mapping" Relationship="Self.FK_Trainer_WorkShop_Mapping_WorkShop" FromRole="WorkShop" ToRole="Trainer_WorkShop_Mapping" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_WorkShop_UserDetail1" FromRole="WorkShop" ToRole="UserDetail" />
+        </EntityType>
+        <Association Name="FK_Material_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_WorkShop_Mapping_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Student_WorkShop_Mapping" Type="Self.Student_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Student_WorkShop_Mapping">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_WorkShop_Mapping_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Student_WorkShop_Mapping" Type="Self.Student_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Student_WorkShop_Mapping">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_WorkShop_Mapping_UserDetail">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Trainer_WorkShop_Mapping" Type="Self.Trainer_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="Trainer_WorkShop_Mapping">
+              <PropertyRef Name="TrainerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_WorkShop_Mapping_WorkShop">
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="0..1" />
+          <End Role="Trainer_WorkShop_Mapping" Type="Self.Trainer_WorkShop_Mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShop">
+              <PropertyRef Name="WorkShopId" />
+            </Principal>
+            <Dependent Role="Trainer_WorkShop_Mapping">
+              <PropertyRef Name="WorkShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShop_UserDetail1">
+          <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="WorkShop" Type="Self.WorkShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="WorkShop">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ARSWorkShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Materials" EntityType="Self.Material" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Student_WorkShop_Mapping" EntityType="Self.Student_WorkShop_Mapping" />
+          <EntitySet Name="Trainer_WorkShop_Mapping" EntityType="Self.Trainer_WorkShop_Mapping" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+          <EntitySet Name="WorkShops" EntityType="Self.WorkShop" />
+          <AssociationSet Name="FK_Material_UserDetail" Association="Self.FK_Material_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="Material" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_WorkShop" Association="Self.FK_Material_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShops" />
+            <End Role="Material" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_WorkShop_Mapping_UserDetail" Association="Self.FK_Student_WorkShop_Mapping_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="Student_WorkShop_Mapping" EntitySet="Student_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_WorkShop_Mapping_WorkShop" Association="Self.FK_Student_WorkShop_Mapping_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShops" />
+            <End Role="Student_WorkShop_Mapping" EntitySet="Student_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_WorkShop_Mapping_UserDetail" Association="Self.FK_Trainer_WorkShop_Mapping_UserDetail">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="Trainer_WorkShop_Mapping" EntitySet="Trainer_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_WorkShop_Mapping_WorkShop" Association="Self.FK_Trainer_WorkShop_Mapping_WorkShop">
+            <End Role="WorkShop" EntitySet="WorkShops" />
+            <End Role="Trainer_WorkShop_Mapping" EntitySet="Trainer_WorkShop_Mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShop_UserDetail1" Association="Self.FK_WorkShop_UserDetail1">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="WorkShop" EntitySet="WorkShops" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AppOrRejectWorkshopRequest">
+            <Parameter Name="IsApproved" Mode="In" Type="Boolean" />
+            <Parameter Name="SerialNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CreateMaterial">
+            <Parameter Name="MaterialPath" Mode="In" Type="String" />
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CreateTrainer">
+            <Parameter Name="UserName_Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DeleteWorkshopById">
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetMaterials" ReturnType="Collection(ARSWorkShopModel.SP_GetMaterials_Result)" />
+          <FunctionImport Name="SP_GetStudents" ReturnType="Collection(ARSWorkShopModel.SP_GetStudents_Result)" />
+          <FunctionImport Name="SP_GetTrainers" ReturnType="Collection(ARSWorkShopModel.SP_GetTrainers_Result)" />
+          <FunctionImport Name="SP_GetWorkshopById" ReturnType="Collection(ARSWorkShopModel.SP_GetWorkshopById_Result)">
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetWorkShopByUser" ReturnType="Collection(ARSWorkShopModel.SP_GetWorkShopByUser_Result)">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetWorkshopRequest" ReturnType="Collection(ARSWorkShopModel.SP_GetWorkshopRequest_Result)" />
+          <FunctionImport Name="SP_GetWorkshops" ReturnType="Collection(ARSWorkShopModel.SP_GetWorkshops_Result)" />
+          <FunctionImport Name="SP_InsertIntoStudentWorkshopMapping">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertIntoTrainerWorkshopMapping">
+            <Parameter Name="TrainerId" Mode="In" Type="Int32" />
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertIntoUserDetailsOfStudents" ReturnType="Collection(Decimal)">
+            <Parameter Name="UserName_Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertWorkshop" ReturnType="Collection(Decimal)">
+            <Parameter Name="WorkShopTitle" Mode="In" Type="String" />
+            <Parameter Name="WorkShopDate" Mode="In" Type="DateTime" />
+            <Parameter Name="WorkShopDuration" Mode="In" Type="String" />
+            <Parameter Name="WorkshopTopics" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RegisterStud">
+            <Parameter Name="UserName_Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="UserGender" Mode="In" Type="String" />
+            <Parameter Name="Mobile" Mode="In" Type="String" />
+            <Parameter Name="UserDob" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UpdateWorkshopById">
+            <Parameter Name="WorkShopTitle" Mode="In" Type="String" />
+            <Parameter Name="WorkShopDate" Mode="In" Type="DateTime" />
+            <Parameter Name="WorkShopDuration" Mode="In" Type="String" />
+            <Parameter Name="WorkshopTopics" Mode="In" Type="String" />
+            <Parameter Name="WorkShopId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ValidateUser" ReturnType="Collection(ARSWorkShopModel.SP_ValidateUser_Result)">
+            <Parameter Name="UserName_Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spAuthenticateUser" ReturnType="Collection(ARSWorkShopModel.spAuthenticateUser_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_GetMaterials_Result">
+          <Property Type="Int32" Name="MaterialId" Nullable="false" />
+          <Property Type="String" Name="MaterialDescription" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MaterialPath" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="WorkShopTitle" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_GetStudents_Result">
+          <Property Type="Int32" Name="Userid" Nullable="false" />
+          <Property Type="String" Name="UserName_Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UserGender" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="UserDob" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SkillsSet" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Experience" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleId" Nullable="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="Updateddate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="RoleId1" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetTrainers_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName_Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="String" Name="UserGender" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="SkillsSet" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Experience" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_GetWorkshopById_Result">
+          <Property Type="Int32" Name="WorkShopId" Nullable="false" />
+          <Property Type="String" Name="WorkShopTitle" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="WorkShopDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="WorkShopDuration" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="WorkShopTopics" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_GetWorkShopByUser_Result">
+          <Property Type="Int32" Name="WorkShopId" Nullable="true" />
+          <Property Type="String" Name="WorkShopTitle" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="WorkShopDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="WorkShopDuration" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="WorkShopTopics" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_GetWorkshopRequest_Result">
+          <Property Type="Int32" Name="SerialNo" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="UserName_Email" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="WorkShopId" Nullable="true" />
+          <Property Type="String" Name="WorkShopTitle" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetWorkshops_Result">
+          <Property Type="Int32" Name="WorkShopId" Nullable="false" />
+          <Property Type="String" Name="WorkShopTitle" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="WorkShopDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="WorkShopDuration" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="WorkShopTopics" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_ValidateUser_Result">
+          <Property Type="Int32" Name="Userid" Nullable="false" />
+          <Property Type="String" Name="UserName_Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UserGender" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="UserDob" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SkillsSet" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Experience" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleId" Nullable="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="Updateddate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="spAuthenticateUser_Result">
+          <Property Type="String" Name="UserName_Email" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RoleId" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ARSWorkShopModelStoreContainer" CdmEntityContainer="ARSWorkShopEntities">
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+                <ScalarProperty Name="MaterialPath" ColumnName="MaterialPath" />
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_WorkShop_Mapping">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.Student_WorkShop_Mapping">
+              <MappingFragment StoreEntitySet="Student_WorkShop_Mapping">
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="ISApproved" ColumnName="ISApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainer_WorkShop_Mapping">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.Trainer_WorkShop_Mapping">
+              <MappingFragment StoreEntitySet="Trainer_WorkShop_Mapping">
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetail">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="SkillsSet" ColumnName="SkillsSet" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Updateddate" ColumnName="Updateddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkShops">
+            <EntityTypeMapping TypeName="ARSWorkShopModel.WorkShop">
+              <MappingFragment StoreEntitySet="WorkShop">
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+                <ScalarProperty Name="WorkShopDate" ColumnName="WorkShopDate" />
+                <ScalarProperty Name="WorkShopDuration" ColumnName="WorkShopDuration" />
+                <ScalarProperty Name="WorkShopTopics" ColumnName="WorkShopTopics" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AppOrRejectWorkshopRequest" FunctionName="ARSWorkShopModel.Store.SP_AppOrRejectWorkshopRequest" />
+          <FunctionImportMapping FunctionImportName="SP_CreateMaterial" FunctionName="ARSWorkShopModel.Store.SP_CreateMaterial" />
+          <FunctionImportMapping FunctionImportName="SP_CreateTrainer" FunctionName="ARSWorkShopModel.Store.SP_CreateTrainer" />
+          <FunctionImportMapping FunctionImportName="SP_DeleteWorkshopById" FunctionName="ARSWorkShopModel.Store.SP_DeleteWorkshopById" />
+          <FunctionImportMapping FunctionImportName="SP_GetMaterials" FunctionName="ARSWorkShopModel.Store.SP_GetMaterials">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetMaterials_Result">
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+                <ScalarProperty Name="MaterialPath" ColumnName="MaterialPath" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetStudents" FunctionName="ARSWorkShopModel.Store.SP_GetStudents">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetStudents_Result">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="SkillsSet" ColumnName="SkillsSet" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Updateddate" ColumnName="Updateddate" />
+                <ScalarProperty Name="RoleId1" ColumnName="RoleId1" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetTrainers" FunctionName="ARSWorkShopModel.Store.SP_GetTrainers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetTrainers_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="SkillsSet" ColumnName="SkillsSet" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetWorkshopById" FunctionName="ARSWorkShopModel.Store.SP_GetWorkshopById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetWorkshopById_Result">
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+                <ScalarProperty Name="WorkShopDate" ColumnName="WorkShopDate" />
+                <ScalarProperty Name="WorkShopDuration" ColumnName="WorkShopDuration" />
+                <ScalarProperty Name="WorkShopTopics" ColumnName="WorkShopTopics" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetWorkShopByUser" FunctionName="ARSWorkShopModel.Store.SP_GetWorkShopByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetWorkShopByUser_Result">
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+                <ScalarProperty Name="WorkShopDate" ColumnName="WorkShopDate" />
+                <ScalarProperty Name="WorkShopDuration" ColumnName="WorkShopDuration" />
+                <ScalarProperty Name="WorkShopTopics" ColumnName="WorkShopTopics" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetWorkshopRequest" FunctionName="ARSWorkShopModel.Store.SP_GetWorkshopRequest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetWorkshopRequest_Result">
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetWorkshops" FunctionName="ARSWorkShopModel.Store.SP_GetWorkshops">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_GetWorkshops_Result">
+                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
+                <ScalarProperty Name="WorkShopTitle" ColumnName="WorkShopTitle" />
+                <ScalarProperty Name="WorkShopDate" ColumnName="WorkShopDate" />
+                <ScalarProperty Name="WorkShopDuration" ColumnName="WorkShopDuration" />
+                <ScalarProperty Name="WorkShopTopics" ColumnName="WorkShopTopics" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_InsertIntoStudentWorkshopMapping" FunctionName="ARSWorkShopModel.Store.SP_InsertIntoStudentWorkshopMapping" />
+          <FunctionImportMapping FunctionImportName="SP_InsertIntoTrainerWorkshopMapping" FunctionName="ARSWorkShopModel.Store.SP_InsertIntoTrainerWorkshopMapping" />
+          <FunctionImportMapping FunctionImportName="SP_InsertIntoUserDetailsOfStudents" FunctionName="ARSWorkShopModel.Store.SP_InsertIntoUserDetailsOfStudents" />
+          <FunctionImportMapping FunctionImportName="SP_InsertWorkshop" FunctionName="ARSWorkShopModel.Store.SP_InsertWorkshop" />
+          <FunctionImportMapping FunctionImportName="SP_RegisterStud" FunctionName="ARSWorkShopModel.Store.SP_RegisterStud" />
+          <FunctionImportMapping FunctionImportName="SP_UpdateWorkshopById" FunctionName="ARSWorkShopModel.Store.SP_UpdateWorkshopById" />
+          <FunctionImportMapping FunctionImportName="SP_ValidateUser" FunctionName="ARSWorkShopModel.Store.SP_ValidateUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.SP_ValidateUser_Result">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="SkillsSet" ColumnName="SkillsSet" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Updateddate" ColumnName="Updateddate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spAuthenticateUser" FunctionName="ARSWorkShopModel.Store.spAuthenticateUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ARSWorkShopModel.spAuthenticateUser_Result">
+                <ScalarProperty Name="UserName_Email" ColumnName="UserName_Email" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

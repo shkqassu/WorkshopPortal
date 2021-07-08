@@ -9,13 +9,12 @@ using ARS.BLL;
 namespace MVCWorkShopProject.Areas.Admin.Controllers
 {
     [Authorize(Roles = "1")]
-    public class TrainerController : Controller
+    public class TrainerController : BaseAdminController
     {
         private string UserName = System.Web.HttpContext.Current.User.Identity.Name;
         
         public ActionResult Index()
         {
-            UserBs Ub = new UserBs();
             var TrnList = Ub.GetTrainers();
             return View(TrnList);
         }
@@ -33,7 +32,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    UserBs Ub = new UserBs();
                     Ub.CreateTrainer(U);
                     TempData["Msg"] = "Created Successfully";
                     return RedirectToAction("Index");
@@ -53,9 +51,8 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
-            UserBs Ub = new UserBs();
-            var StudList = Ub.GetUserById(UserName);
-            return View(StudList);
+            //var StudList = Ub.GetUserById(UserName);
+            return View();
         }
 
         [HttpPost]
@@ -65,7 +62,6 @@ namespace MVCWorkShopProject.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    UserBs Ub = new UserBs();
                     var user = Ub.GetUserById(U.UserName_Email);
                     user.UserId = U.UserId;
                     user.UserName_Email = U.UserName_Email;

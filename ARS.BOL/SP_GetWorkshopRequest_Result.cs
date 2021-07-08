@@ -10,16 +10,14 @@
 namespace ARS.BOL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Student_WorkShop_Mapping
+    public partial class SP_GetWorkshopRequest_Result
     {
         public int SerialNo { get; set; }
-        public Nullable<int> StudentId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public string UserName_Email { get; set; }
         public Nullable<int> WorkShopId { get; set; }
-        public Nullable<bool> ISApproved { get; set; }
-    
-        public virtual UserDetail UserDetail { get; set; }
-        public virtual WorkShop WorkShop { get; set; }
+        public string WorkShopTitle { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
     }
 }

@@ -96,6 +96,38 @@ namespace ARS.DAL
             return Wp;
 
         }
+
+        public List<WorkShopRequest> GetWorkshopRequest()
+        {
+            List<WorkShopRequest> Ls;
+            Ls = new List<WorkShopRequest>();
+
+            //string cmdStr = @"SELECT  UD.UserId, UD.UserName_Email,WS.WorkShopId,
+            //WS.WorkShopTitle, SWP.IsApproved      
+            //FROM    [ARS].[Student_WorkShop_Mapping] SWP Left outer JOIN      
+            //[ARS].[UserDetail] UD ON UD.UserId = SWP.StudentId Left outer JOIN      
+            //[ARS].[WorkShop] WS ON SWP.WorkShopId = WS.WorkShopId";
+            SqlConnection con = new SqlConnection(conStr);
+            SqlCommand cmd = new SqlCommand("SP_GetWorkshopRequest", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                WorkShopRequest Wp = new WorkShopRequest();
+                Wp.SerialNo = int.Parse(dr["SerialNo"].ToString());
+                Wp.UserId = int.Parse(dr["UserId"].ToString());
+                Wp.UserName_Email = dr["UserName_Email"].ToString();
+                Wp.WorkShopId = int.Parse(dr["WorkShopId"].ToString());
+                Wp.WorkShopTitle = dr["WorkShopTitle"].ToString();
+                Wp.IsApproved = (dr["IsApproved"].ToString() == "") ? false : bool.Parse(dr["IsApproved"].ToString());
+                Ls.Add(Wp);
+            }
+            dr.Close();
+            con.Close();
+            return Ls;
+
+        }
         #endregion
 
 
@@ -242,39 +274,7 @@ namespace ARS.DAL
                 return false;
             }
         }
-
-        public List<WorkShopRequest> GetWorkshopRequest()
-        {
-            List<WorkShopRequest> Ls;
-            Ls = new List<WorkShopRequest>();
-
-            //string cmdStr = @"SELECT  UD.UserId, UD.UserName_Email,WS.WorkShopId,
-            //WS.WorkShopTitle, SWP.IsApproved      
-            //FROM    [ARS].[Student_WorkShop_Mapping] SWP Left outer JOIN      
-            //[ARS].[UserDetail] UD ON UD.UserId = SWP.StudentId Left outer JOIN      
-            //[ARS].[WorkShop] WS ON SWP.WorkShopId = WS.WorkShopId";
-            SqlConnection con = new SqlConnection(conStr);
-            SqlCommand cmd = new SqlCommand("SP_GetWorkshopRequest", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            con.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                WorkShopRequest Wp = new WorkShopRequest();
-                Wp.SerialNo = int.Parse(dr["SerialNo"].ToString());
-                Wp.UserId = int.Parse(dr["UserId"].ToString());
-                Wp.UserName_Email = dr["UserName_Email"].ToString();
-                Wp.WorkShopId = int.Parse(dr["WorkShopId"].ToString());
-                Wp.WorkShopTitle = dr["WorkShopTitle"].ToString();
-                Wp.IsApproved = (dr["IsApproved"].ToString() == "") ? false : bool.Parse(dr["IsApproved"].ToString());
-                Ls.Add(Wp);
-            }
-            dr.Close();
-            con.Close();
-            return Ls;
-
-        }
-
+        
         public bool AppOrRejectWorkshopRequest(Student_WorkShop_Mapping swp)
         {
             try
@@ -285,7 +285,7 @@ namespace ARS.DAL
                 SqlConnection con = new SqlConnection(conStr);
                 SqlCommand cmd = new SqlCommand("SP_AppOrRejectWorkshopRequest", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@IsApproved", swp.IsApproved == true ? 1 : 0);
+                cmd.Parameters.AddWithValue("@IsApproved", swp.ISApproved == true ? 1 : 0);
                 cmd.Parameters.AddWithValue("@SerialNo", swp.SerialNo);
                 con.Open();
                 cmd.ExecuteNonQuery();

@@ -11,7 +11,8 @@ namespace ARS.BOL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class WorkShop
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,9 +24,13 @@ namespace ARS.BOL
         }
     
         public int WorkShopId { get; set; }
+        [Required]
         public string WorkShopTitle { get; set; }
+        [Required]
         public Nullable<System.DateTime> WorkShopDate { get; set; }
+        [Required]
         public string WorkShopDuration { get; set; }
+        [Required]
         public string WorkShopTopics { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f10e5e208e5b4e358a6deea957488eef" Name="Diagram1" ZoomLevel="55">
-        <EntityTypeShape EntityType="ARSWorkShopModel.Material" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARSWorkShopModel.Role" Width="1.5" PointX="3.125" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARSWorkShopModel.Student_WorkShop_Mapping" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARSWorkShopModel.Trainer_WorkShop_Mapping" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARSWorkShopModel.UserDetail" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARSWorkShopModel.WorkShop" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+      <Diagram DiagramId="f10e5e208e5b4e358a6deea957488eef" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="ARSWorkShopModel.Material" Width="1.5" PointX="5.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSWorkShopModel.Role" Width="1.5" PointX="8.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSWorkShopModel.Student_WorkShop_Mapping" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSWorkShopModel.Trainer_WorkShop_Mapping" Width="1.5" PointX="5.875" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSWorkShopModel.UserDetail" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSWorkShopModel.WorkShop" Width="1.5" PointX="3.375" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="ARSWorkShopModel.FK_Material_UserDetail" ManuallyRouted="false" />
         <AssociationConnector Association="ARSWorkShopModel.FK_Material_WorkShop" ManuallyRouted="false" />
         <AssociationConnector Association="ARSWorkShopModel.FK_Student_WorkShop_Mapping_UserDetail" ManuallyRouted="false" />

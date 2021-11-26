@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ARS.BOL;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net.Mail;
 
 namespace ARS.DAL
 {
@@ -125,10 +126,19 @@ namespace ARS.DAL
             cmd.Parameters.AddWithValue("@UserDob", U.UserDob);
             cmd.Parameters.AddWithValue("@IsActive", U.IsActive == true ? 1 : 0);
             cmd.Parameters.AddWithValue("@RoleId", U.RoleId);
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-            return true;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                SendMail(U);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+                throw ex;
+            }
         }
 
         public bool ValidateUser(string username, string password)
@@ -315,6 +325,42 @@ namespace ARS.DAL
             dr.Close();
             con.Close();
             return U;
+        }
+
+        public void SendMail(UserDetails U)
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add("your to email");
+            mail.CC.Add("your cc email");
+            mail.From = new MailAddress("your from email", "ARS-IT Centre", Encoding.UTF8);
+            mail.Subject = "Workshop Portal : Successfully Registered";
+            mail.SubjectEncoding = Encoding.UTF8;
+            mail.Body = "Dear Sir/Ma'am,<br/><br/> You have successfully registered on Workshop Portal of ARS-IT Centre. Please find below details for your reference.";
+            mail.Body += "<br/><br/> UserName or Email : " + U.UserName_Email + "<br/> Password : " + U.Password;
+            mail.Body += "<br/><br/> Regards,<br/>ARS-IT Team";
+            mail.Body += "<br/><br/><br/> ****  This is an automatically generated email, please do not reply.  ****";
+            mail.BodyEncoding = Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new System.Net.NetworkCredential("your from email", "your password");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Exception ex2 = ex;
+                string errorMessage = string.Empty;
+                while (ex2 != null)
+                {
+                    errorMessage += ex2.ToString();
+                    ex2 = ex2.InnerException;
+                }
+            }
         }
     }
 }

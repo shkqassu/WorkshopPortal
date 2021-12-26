@@ -32,7 +32,7 @@ namespace MVCWorkShopProject.Areas.Security.Controllers
                 }
                 else
                 {
-                    TempData["Msg"] = "Login Failed  ";
+                    TempData["Msg"] = "Login Failed  :  Invalid Username or Password";
                     return RedirectToAction("Index");
                 }
             }

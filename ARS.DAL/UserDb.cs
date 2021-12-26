@@ -147,30 +147,33 @@ namespace ARS.DAL
             //WHERE (UserName_Email=@UserName_Email and Password=@Password)";
             try
             {
-                SqlConnection con = new SqlConnection(conStr);
-                SqlCommand cmd = new SqlCommand("SP_ValidateUser", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserName_Email", username);
-                cmd.Parameters.AddWithValue("@Password", password);
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                // SqlConnection con = new SqlConnection(conStr);
+                // SqlCommand cmd = new SqlCommand("SP_ValidateUser", con);
+                // cmd.CommandType = CommandType.StoredProcedure;
+                // cmd.Parameters.AddWithValue("@UserName_Email", username);
+                // cmd.Parameters.AddWithValue("@Password", password);
+                // con.Open();
+                // SqlDataReader dr = cmd.ExecuteReader();
+                if (entity.UserDetails.Any(x => x.UserName_Email == username & x.Password == password))
                 {
-                    UserDetails U = new UserDetails();
-                    U.UserId = int.Parse(dr["UserId"].ToString());
-                    U.UserName_Email = dr["UserName_Email"].ToString();
-                    U.FirstName = dr["FirstName"].ToString();
-                    U.RoleId = int.Parse(dr["RoleId"].ToString());
+                    return true;
+                    // UserDetails U = new UserDetails();
+                    // U.UserId = int.Parse(dr["UserId"].ToString());
+                    // U.UserName_Email = dr["UserName_Email"].ToString();
+                    // U.FirstName = dr["FirstName"].ToString();
+                    // U.RoleId = int.Parse(dr["RoleId"].ToString());
                 }
+                else
+                    return false;
 
-                dr.Close();
-                con.Close();
-                return true;
+                // dr.Close();
+                // con.Close();
+                // return true;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
-                throw;
+                throw ex;
             }
 
         }

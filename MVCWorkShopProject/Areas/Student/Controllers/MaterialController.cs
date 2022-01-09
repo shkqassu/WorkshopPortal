@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ARS.BOL;
 using ARS.BLL;
 using System.IO;
+using System.Net.Mime;
 
 namespace MVCWorkShopProject.Areas.Student.Controllers
 {
@@ -20,18 +21,20 @@ namespace MVCWorkShopProject.Areas.Student.Controllers
             return View(MatList);
         }
 
-        public ActionResult Download(string MaterialPath)
+        public FileResult Download(string MaterialPath)
         {
             //MaterialBs Mb = new MaterialBs();
             //var MatList = Mb.GetMaterials();
             if (MaterialPath != null)
             {
-                Response.ContentType = "application/pdf";
-                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(MaterialPath));
+                //Response.ContentType = "application/pdf";
+                //Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(MaterialPath));
                 //Response.TransmitFile(Path.GetFileName(MaterialPath));
-                Response.End();
+                //Response.End();
+                return File(System.IO.File.ReadAllBytes(MaterialPath), MediaTypeNames.Application.Octet, Path.GetFileName(MaterialPath));
             }
-            return RedirectToAction("Index");
+            return File(System.IO.File.ReadAllBytes(MaterialPath), MediaTypeNames.Application.Octet, Path.GetFileName(MaterialPath));
+            // return RedirectToAction("Index");
         }
     }
 }

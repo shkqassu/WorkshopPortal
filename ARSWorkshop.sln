@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCWorkShopProject", "MVCWorkShopProject\MVCWorkShopProject.csproj", "{F1B6FB4A-5F6E-4D15-B16B-3851692BC986}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARS.PRESENTATION", "MVCWorkShopProject\ARS.PRESENTATION.csproj", "{F1B6FB4A-5F6E-4D15-B16B-3851692BC986}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARS.BOL", "ARS.BOL\ARS.BOL.csproj", "{F65709BA-6BEE-4DA2-80DE-A4B5B1A109EE}"
 EndProject
@@ -36,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E92F54DA-18D1-4915-8E13-445EB0E72577}
 	EndGlobalSection
 EndGlobal
